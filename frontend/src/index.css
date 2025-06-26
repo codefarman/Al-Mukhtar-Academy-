@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+
+html[dir='rtl'] {
+  direction: rtl;
+  font-family: 'Noto Naskh Arabic', serif;
+}
