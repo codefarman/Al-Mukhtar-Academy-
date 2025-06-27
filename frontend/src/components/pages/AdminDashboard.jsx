@@ -8,6 +8,7 @@ const AdminDashboard = () => {
         title: "",
         category: "",
         pdf: null,
+        cover: null,
     });
     const { t } = useTranslation();
 
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
                   },
             });
             alert('Book uploaded successfully');
-            setFormData({ title: "", category: "", pdf: null });
+            setFormData({ title: "", category: "", pdf: null, cover: null });
             fetchBooks();
         } catch (err) {
             console.error(err);
