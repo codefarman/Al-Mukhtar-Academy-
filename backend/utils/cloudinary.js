@@ -25,3 +25,6 @@ export const pdfStorage = new CloudinaryStorage({
     allowed_formats: ['pdf'],
   },
 });
+
+
+export { cloudinary };
