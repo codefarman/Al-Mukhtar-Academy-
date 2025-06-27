@@ -4,14 +4,15 @@ export const uploadBook = async (req, res) => {
   try {
     const { title, category } = req.body;
 
-    const pdfUrl = req.files?.pdf?.[0]?.path || req.file?.path;
-    const coverUrl = req.files?.cover?.[0]?.path || req.file?.path;
-
-    if (!pdfUrl || !coverUrl) {
-      return res.status(400).json({ message: "PDF or Cover not uploaded" });
+    if (!req.files?.pdf || !req.files?.cover) {
+      return res.status(400).json({ message: "Missing files" });
     }
 
+    const pdfUrl = req.files.pdf[0].path;      // Cloudinary PDF URL
+    const coverUrl = req.files.cover[0].path;  // Cloudinary Image URL
+
     const book = await Book.create({ title, category, pdfUrl, coverUrl });
+
     res.status(201).json(book);
   } catch (err) {
     console.error(err);

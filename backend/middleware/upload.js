@@ -33,22 +33,26 @@
 
 // export default upload;
 
-import multer from 'multer';
-import path from 'path';
 
-// Define storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${ext}`;
-    cb(null, uniqueName);
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from '../utils/cloudinary.js';
+
+// PDF & Image upload using Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    const folder = 'books';
+    const allowedFormats = ['pdf', 'jpg', 'png', 'jpeg', 'webp'];
+    return {
+      folder,
+      format: allowedFormats.includes(file.mimetype.split('/')[1]) ? file.mimetype.split('/')[1] : 'pdf',
+      public_id: `${Date.now()}-${file.originalname.replace(/\.[^/.]+$/, '')}`,
+    };
   },
 });
 
-// Allow only PDFs and images
+// File filter for PDFs and images
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
   if (allowedTypes.includes(file.mimetype)) {
@@ -58,31 +62,11 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Initialize multer
 const upload = multer({ storage, fileFilter });
 
-// Middleware for handling multiple fields
 export const uploadBookFiles = upload.fields([
   { name: 'pdf', maxCount: 1 },
   { name: 'cover', maxCount: 1 },
 ]);
-
-// Optional: Debug logger middleware
-export const debugLogger = (req, res, next) => {
-  console.log('Incoming upload request...');
-  next();
-};
-
-// Error handler for multer-specific errors
-export const uploadErrorHandler = (err, req, res, next) => {
-  if (err instanceof multer.MulterError) {
-    console.error('MulterError:', err.message);
-    return res.status(400).json({ error: err.message });
-  } else if (err) {
-    console.error('Unknown error during file upload:', err.message);
-    return res.status(500).json({ error: 'File upload failed' });
-  }
-  next();
-};
 
 export default upload;
