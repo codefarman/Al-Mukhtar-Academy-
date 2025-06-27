@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                                     <td className='p-2'>{book.category}</td>
                                     <td className='p-2'>
                                         <a 
-                                        href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
+                                        href={book.pdfUrl}
                                         target='_blank'
                                         rel='noopener  noreferrer'
                                         className='text-blue-600 underline'

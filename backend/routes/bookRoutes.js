@@ -3,7 +3,6 @@ import { uploadBookFiles } from '../middleware/upload.js';
 import { uploadBook, getAllBooks, deleteBook  } from '../controllers/bookController.js';
 import { verifyAdmin } from '../middleware/authmiddleware.js';
 
-
 const router = express.Router();
 
 router.post('/upload', verifyAdmin, uploadBookFiles, uploadBook);

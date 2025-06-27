@@ -30,13 +30,13 @@ const BooksGallery = () => {
 
             {/* Cover Image (clickable) */}
             <a
-              href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
+              href={book.pdfUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="block mb-3"
             >
               <img
-                src={`https://al-mukhtar-academy.onrender.com${book.coverUrl}`}
+                src={book.coverUrl}
                 alt={book.title}
                 className="w-full h-64 object-contain rounded "
               />

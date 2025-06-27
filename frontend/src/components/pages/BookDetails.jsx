@@ -24,7 +24,7 @@ const BookDetails = () => {
     <div className="bg-gray-100 min-h-screen p-4">
       <div className="max-w-5xl mx-auto">
         <img
-          src={`https://al-mukhtar-academy.onrender.com${book.coverUrl}`}
+          src={book.coverUrl}
           alt={book.title}
           className="w-full h-96 object-contain mb-6 rounded shadow"
         />
@@ -32,11 +32,11 @@ const BookDetails = () => {
         <p className="text-sm text-gray-600 mb-6">Category: {book.category}</p>
 
         {/* Custom PDF Viewer */}
-        <BookViewer pdfUrl={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`} />
+        <BookViewer pdfUrl={book.pdfUrl} />
 
         <div className="mt-6 text-center">
           <a
-            href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
+            href={book.pdfUrl}
             download
             className="inline-block bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
           >
