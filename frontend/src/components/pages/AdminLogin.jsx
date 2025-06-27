@@ -13,7 +13,7 @@ const AdminLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res =  axios.post("http://localhost:5000/api/admin/login", {
+            const res =  axios.post("https://al-mukhtar-academy.onrender.com/api/admin/login", {
                 email,
                 password,
             });

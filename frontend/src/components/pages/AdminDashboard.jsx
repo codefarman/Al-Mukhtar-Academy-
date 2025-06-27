@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
     // fetch books
     const fetchBooks = async () => {
-        const res = await axios.get('http://localhost:5000/api/books');
+        const res = await axios.get('https://al-mukhtar-academy.onrender.com/api/books');
         setBooks(res.data);
     };
 
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
         data.append('cover', formData.cover);
 
         try {
-            await axios.post("http://localhost:5000/api/books/upload", data,{
+            await axios.post("https://al-mukhtar-academy.onrender.com/api/books/upload", data,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,              
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
     // delete book
     const deleteBook = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/books/${id}`, {
+            await axios.delete(`https://al-mukhtar-academy.onrender.com/api/books/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                                     <td className='p-2'>{book.category}</td>
                                     <td className='p-2'>
                                         <a 
-                                        href={`http://localhost:5000${book.pdfUrl}`}
+                                        href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
                                         target='_blank'
                                         rel='noopener  noreferrer'
                                         className='text-blue-600 underline'

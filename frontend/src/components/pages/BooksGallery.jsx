@@ -7,7 +7,7 @@ const BooksGallery = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/books").then((res) => {
+    axios.get("https://al-mukhtar-academy.onrender.com/api/books").then((res) => {
       setBooks(res.data);
     });
   }, []);
@@ -30,13 +30,13 @@ const BooksGallery = () => {
 
             {/* Cover Image (clickable) */}
             <a
-              href={`http://localhost:5000${book.pdfUrl}`}
+              href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block mb-3"
             >
               <img
-                src={`http://localhost:5000${book.coverUrl}`}
+                src={`https://al-mukhtar-academy.onrender.com${book.coverUrl}`}
                 alt={book.title}
                 className="w-full h-64 object-contain rounded "
               />

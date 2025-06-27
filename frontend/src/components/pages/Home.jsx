@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/books");
+        const res = await fetch("https://al-mukhtar-academy.onrender.com/api/books");
         const data = await res.json();
         setBooks(data);
       } catch (error) {
