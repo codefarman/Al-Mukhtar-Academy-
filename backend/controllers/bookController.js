@@ -12,13 +12,15 @@ export const uploadBook = async (req, res) => {
 
     // Upload PDF to Cloudinary as raw file
     const pdfResult = await cloudinary.uploader.upload(req.files.pdf[0].path, {
-      resource_type: "raw",
-      folder: "books/pdfs"
+      resource_type: "auto", // auto-detects file type
+      folder: "books/pdfs",
+      type: "upload"
     });
 
     // Upload Cover image to Cloudinary
     const coverResult = await cloudinary.uploader.upload(req.files.cover[0].path, {
-      folder: "books/covers"
+      folder: "books/covers",
+      type: "upload"
     });
 
     // Optionally delete local temp files
