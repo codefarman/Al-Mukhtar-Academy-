@@ -1,4 +1,6 @@
 import Book from '../models/Book.js';
+import cloudinary from '../utils/cloudinary.js';  // make sure this exports cloudinary instance
+import fs from 'fs';
 
 export const uploadBook = async (req, res) => {
   try {
@@ -8,10 +10,28 @@ export const uploadBook = async (req, res) => {
       return res.status(400).json({ message: "Missing files" });
     }
 
-    const pdfUrl = req.files.pdf[0].path;      // Cloudinary PDF URL
-    const coverUrl = req.files.cover[0].path;  // Cloudinary Image URL
+    // Upload PDF to Cloudinary as raw file
+    const pdfResult = await cloudinary.uploader.upload(req.files.pdf[0].path, {
+      resource_type: "raw",
+      folder: "books/pdfs"
+    });
 
-    const book = await Book.create({ title, category, pdfUrl, coverUrl });
+    // Upload Cover image to Cloudinary
+    const coverResult = await cloudinary.uploader.upload(req.files.cover[0].path, {
+      folder: "books/covers"
+    });
+
+    // Optionally delete local temp files
+    fs.unlinkSync(req.files.pdf[0].path);
+    fs.unlinkSync(req.files.cover[0].path);
+
+    // Save book entry
+    const book = await Book.create({
+      title,
+      category,
+      pdfUrl: pdfResult.secure_url,
+      coverUrl: coverResult.secure_url
+    });
 
     res.status(201).json(book);
   } catch (err) {
@@ -19,6 +39,7 @@ export const uploadBook = async (req, res) => {
     res.status(500).json({ error: "Upload failed" });
   }
 };
+
 
 
 
