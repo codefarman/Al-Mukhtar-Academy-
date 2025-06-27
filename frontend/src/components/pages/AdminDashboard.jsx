@@ -28,7 +28,7 @@ const AdminDashboard = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.title || !formData.category || !formData.pdf) {
+        if (!formData.title || !formData.category || !formData.pdf || !formData.cover) {
             alert("please fill all fields");
             return;
         }
