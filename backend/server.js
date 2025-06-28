@@ -29,9 +29,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB Connecte
 .catch(err => console.error(err));
 
 const PORT = process.env.PORT;
-if (!PORT) {
-  throw new Error('❌ Railway: PORT environment variable is missing.');
-}
+
 app.listen(PORT,'0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });

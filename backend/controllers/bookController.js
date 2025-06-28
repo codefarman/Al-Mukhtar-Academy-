@@ -1,5 +1,5 @@
 import Book from '../models/Book.js';
-import cloudinary from '../utils/cloudinary.js';  // make sure this exports cloudinary instance
+import cloudinary from '../utils/cloudinary.js';
 import fs from 'fs';
 
 export const uploadBook = async (req, res) => {
@@ -10,35 +10,36 @@ export const uploadBook = async (req, res) => {
       return res.status(400).json({ message: "Missing files" });
     }
 
-    // Upload PDF to Cloudinary as raw file
-    const pdfResult = await cloudinary.uploader.upload(req.files.pdf[0].path, {
-      resource_type: "raw", // auto-detects file type
-      folder: "books/pdfs"
+    // Upload PDF to Cloudinary
+    const pdfUpload = await cloudinary.uploader.upload(req.files.pdf[0].path, {
+      resource_type: 'raw', // important for PDFs
+      folder: 'books/pdfs',
     });
 
     // Upload Cover image to Cloudinary
-    const coverResult = await cloudinary.uploader.upload(req.files.cover[0].path, {
-      folder: "books/covers"
+    const coverUpload = await cloudinary.uploader.upload(req.files.cover[0].path, {
+      folder: 'books/covers',
     });
 
-    // Optionally delete local temp files
+    // Only delete local temp files from multer
     fs.unlinkSync(req.files.pdf[0].path);
     fs.unlinkSync(req.files.cover[0].path);
 
-    // Save book entry
+    // Save book data to DB
     const book = await Book.create({
       title,
       category,
-      pdfUrl: pdfResult.secure_url,
-      coverUrl: coverResult.secure_url
+      pdfUrl: pdfUpload.secure_url,
+      coverUrl: coverUpload.secure_url,
     });
 
     res.status(201).json(book);
   } catch (err) {
-    console.error(err);
+    console.error("Upload error:", err);
     res.status(500).json({ error: "Upload failed" });
   }
 };
+
 
 
 
