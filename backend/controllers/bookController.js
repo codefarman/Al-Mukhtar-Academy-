@@ -10,22 +10,25 @@ export const uploadBook = async (req, res) => {
       return res.status(400).json({ message: "Missing files" });
     }
 
-    // Upload PDF to Cloudinary
+    // Upload to Cloudinary
     const pdfUpload = await cloudinary.uploader.upload(req.files.pdf[0].path, {
-      resource_type: 'raw', // important for PDFs
+      resource_type: 'raw',
       folder: 'books/pdfs',
     });
 
-    // Upload Cover image to Cloudinary
     const coverUpload = await cloudinary.uploader.upload(req.files.cover[0].path, {
       folder: 'books/covers',
     });
 
-    // Only delete local temp files from multer
-    fs.unlinkSync(req.files.pdf[0].path);
-    fs.unlinkSync(req.files.cover[0].path);
+    // Delete only local files (temp uploads)
+    try {
+      fs.unlinkSync(req.files.pdf[0].path);
+      fs.unlinkSync(req.files.cover[0].path);
+    } catch (unlinkErr) {
+      console.warn("Warning: Failed to delete temp files", unlinkErr.message);
+    }
 
-    // Save book data to DB
+    // Save to MongoDB
     const book = await Book.create({
       title,
       category,
@@ -34,13 +37,12 @@ export const uploadBook = async (req, res) => {
     });
 
     res.status(201).json(book);
+
   } catch (err) {
     console.error("Upload error:", err);
     res.status(500).json({ error: "Upload failed" });
   }
 };
-
-
 
 
 
