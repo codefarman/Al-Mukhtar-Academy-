@@ -14,13 +14,13 @@ const BookCard = ({ book }) => {
 
       {/* Clickable Book Cover */}
       <a
-        href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
+        href={book.pdfUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="block mb-3"
       >
         <img
-          src={`https://al-mukhtar-academy.onrender.com${book.coverUrl}`}
+          src={book.coverUrl}
           alt="Book cover"
           className="w-full h-64 object-contain rounded "
         />
@@ -37,7 +37,7 @@ const BookCard = ({ book }) => {
         View Book
       </Link> */}
       <a 
-        href={`https://al-mukhtar-academy.onrender.com${book.pdfUrl}`}
+        href={book.pdfUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="block mb-3 text-sm text-white  bg-green-600 px-3 py-1 rounded text-center"

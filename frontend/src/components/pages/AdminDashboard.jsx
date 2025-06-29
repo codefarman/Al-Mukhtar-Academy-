@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 const AdminDashboard = () => {
     const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
+    const [deleteSuccessMsg, setDeleteSuccessMsg] = useState('');
     const [ formData, setFormData] = useState({
         title: "",
         category: "",
@@ -41,20 +44,32 @@ const AdminDashboard = () => {
         data.append('cover', formData.cover);
 
         try {
+            setLoading(true);
+            setSuccessMsg("");
+
             await axios.post("https://al-mukhtar-academy.onrender.com/api/books/upload", data,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,              
                   },
             });
-            alert('Book uploaded successfully');
+
+            setSuccessMsg(t('bookUploadedSuccessfully'));
             setFormData({ title: "", category: "", pdf: null, cover: null });
             fetchBooks();
+
+            setTimeout(() => {
+                setSuccessMsg('');
+            }, 3000);
+
+
         } catch (err) {
             console.error(err);
             alert('failed to upload book');
 
             window.location.reload();
+        } finally {
+            setLoading(false);
         }
         fetchBooks();
     };
@@ -67,8 +82,12 @@ const AdminDashboard = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            setDeleteSuccessMsg(t('bookDeletedSuccessfully'));
             fetchBooks();
-        } catch  {
+            setTimeout(() => {
+                setDeleteSuccessMsg('');
+            }, 3000);
+        } catch {
             alert('Delete failed')
         }
     };
@@ -122,9 +141,22 @@ const AdminDashboard = () => {
                 >
                     {t('uploadBook')}
                 </button>
+                {loading && (
+                    <div className='flex justify-center my-4'>
+                        <div className='w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animation-spin'></div>
+                    </div>
+                )}
+                {successMsg && (
+                    <p className='text-center text-green-600 font-semibold'>{successMsg}</p>
+                )}
              </form>
 
              {/* Upload Books List */}
+             {deleteSuccessMsg && (
+                <div className='bg-green-100 text-green-700 px-2 rounded mb-4 text-center'>
+                    {deleteSuccessMsg}
+                </div>
+             )}
              <div className='bg-white p-4 rounded shadow'>
                 <h2 className='text-lg font-semibold mb-4'>{(t('uploadBooks'))}</h2>
                 {books.length === 0 ? (
