@@ -4,7 +4,7 @@ import fs from 'fs';
 
 export const uploadBook = async (req, res) => {
   try {
-    const { title, category } = req.body;
+    const { title, category, description } = req.body;
 
     if (!req.files?.pdf || !req.files?.cover) {
       return res.status(400).json({ message: "Missing files" });
@@ -32,7 +32,8 @@ export const uploadBook = async (req, res) => {
     const book = await Book.create({
       title,
       category,
-      pdfUrl: pdfUpload.secure_url,
+      description,
+      pdfUrl: `${pdfUpload.secure_url}?fl_attachment=${encodeURIComponent(title)}.pdf`,
       coverUrl: coverUpload.secure_url,
     });
 

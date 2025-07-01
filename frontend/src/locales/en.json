@@ -67,5 +67,8 @@
   "email1": "📧 Email: islamicbooks@example.com",
   "whatsapp": "📱 WhatsApp: +91-XXXXXXXXXX",
   "footer_text": "© 2025 Islamic Imdadi Books. All rights reserved.",
-  "bookUploadedSuccessfully": "Book uploaded successfully!"
+  "bookUploadedSuccessfully": "Book uploaded successfully!",
+  "readOnline": "Read Online",
+  "download": "Download",
+  "aboutBook": "About Book"
 }

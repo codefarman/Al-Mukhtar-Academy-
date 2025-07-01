@@ -5,6 +5,7 @@ const bookSchema = new mongoose.Schema({
     category: String,
     pdfUrl: String,
     coverUrl: String,
+    description: String,
 }, { timestamps: true});
 
 const Book = mongoose.model('Book', bookSchema);

@@ -6,11 +6,17 @@ import AdminDashboard from "./components/pages/AdminDashboard";
 import BooksGallery from "./components/pages/BooksGallery";
 import About from "./components/About/About";
 import './index.css';
+import { Toaster } from 'react-hot-toast';
 
 
 export default function App() {
   
   return (
+    <>
+    <Toaster position="top-right" reverseOrder={false} />
+    
+  
+
     <Routes>
       <Route path="/" element={<Home />} />
       {/* <Route path="/books/:id" element={<BookDetails />} /> */}
@@ -19,5 +25,7 @@ export default function App() {
       <Route path="/books" element={<BooksGallery />} />
       <Route path="/about" element={<About />} />
     </Routes>
+    
+    </>
   );
 }
