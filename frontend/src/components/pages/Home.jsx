@@ -2,12 +2,10 @@ import Navbar from "../Navbar/Navbar";
 import HeroSection from "../HeroSection/HeroSection";
 import BookCard from "../BookCard/Bookcard";
 import Footer from "../Footer/Footer";
-import { useEffect, useState } from "react"; 
-// import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
-  //  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -21,18 +19,23 @@ const Home = () => {
     };
     fetchBooks();
   }, []);
+
   return (
     <div className="bg-[#1a1a1a] text-gray-900">
       <Navbar />
       <HeroSection />
-      <section className="px-4 py-10 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {books.map((book) => (
-          <BookCard key={book._id} book={book} />
-        ))}
+
+      <section className="px-4 py-10 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {books.slice(0, 6).map((book) => (
+            <BookCard key={book._id} book={book} />
+          ))}
+        </div>
       </section>
+
       <Footer />
     </div>
   );
-}
+};
 
 export default Home;
