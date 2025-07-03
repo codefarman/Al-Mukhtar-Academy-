@@ -22,7 +22,7 @@ const Home = () => {
     fetchBooks();
   }, []);
   return (
-    <div className="bg-gray-100 text-gray-900">
+    <div className="bg-[#1a1a1a] text-gray-900">
       <Navbar />
       <HeroSection />
       <section className="px-4 py-10 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

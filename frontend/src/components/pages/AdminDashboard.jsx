@@ -99,9 +99,9 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className='min-h-screen bg-gray-100 p-6'>
+        <div className='min-h-screen bg-[#262626] p-6'>
             <div className='max-w-4xl mx-auto'>
-                <h1 className='text-2xl font-bold text-green-700 mb-6 text-center'>{(t('adminDashboard'))}</h1>
+                <h1 className='text-2xl font-bold text-yellow-400 mb-6 text-center'>{(t('adminDashboard'))}</h1>
 
                 {/* upload Form */}
                 <form
@@ -146,23 +146,23 @@ const AdminDashboard = () => {
                     {formData.cover && <p className="text-sm text-gray-500">{(t('selected'))}: {formData.cover.name}</p>}
                     <button
                         type='submit'
-                        className='bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700'
+                        className='bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500'
                     >
                         {t('uploadBook')}
                     </button>
                     {loading && (
                         <div className='flex justify-center my-4'>
-                            <div className='w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animation-spin'></div>
+                            <div className='w-8 h-8 border-4 border-yellow-400 border-t-transparent rounded-full animation-spin'></div>
                         </div>
                     )}
                     {successMsg && (
-                        <p className='text-center text-green-600 font-semibold'>{successMsg}</p>
+                        <p className='text-center text-yellow-400 font-semibold'>{successMsg}</p>
                     )}
                 </form>
 
                 {/* Upload Books List */}
                 {deleteSuccessMsg && (
-                    <div className='bg-green-100 text-green-700 px-2 rounded mb-4 text-center'>
+                    <div className='bg-green-100 text-yellow-400 px-2 rounded mb-4 text-center'>
                         {deleteSuccessMsg}
                     </div>
                 )}

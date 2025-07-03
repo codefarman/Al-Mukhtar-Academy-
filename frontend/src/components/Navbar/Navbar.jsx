@@ -24,15 +24,15 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow">
+    <nav className="bg-[#1a1a1a] shadow">
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-green-700">اسلامی امدادی کتاب</h1>
+        <h1 className="text-xl font-bold text-white">المختار لائبریری</h1>
 
         {/* Hamburger Icon (Mobile) */}
         <div className="md:hidden">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <svg
-              className="w-6 h-6 text-green-700"
+              className="w-6 h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -48,25 +48,25 @@ const Navbar = () => {
         </div>
 
         {/* Navbar Links (desktop) */}
-        <ul className="hidden md:flex gap-12 text-lg text-gray-700 items-center">
-          <li><Link to="/" className="hover:text-green-600">{t("home") || "Home"}</Link></li>
-          <li><Link to="/books" className="hover:text-green-600">{t("books") || "Books"}</Link></li>
-          <li><Link to="/about" className="hover:text-green-600">{t("about") || "About"}</Link></li>
-          <li><Link to="/admin/login" className="hover:text-green-600">{t("admin") || "Admin"}</Link></li>
+        <ul className="hidden md:flex gap-12 text-lg text-white items-center">
+          <li><Link to="/" className="hover:border-b-2 hover:border-yellow-400">{t("home") || "Home"}</Link></li>
+          <li><Link to="/books" className="hover:border-b-2 hover:border-yellow-400">{t("books") || "Books"}</Link></li>
+          <li><Link to="/about" className="hover:border-b-2 hover:border-yellow-400">{t("about") || "About"}</Link></li>
+          <li><Link to="/admin/login" className="hover:border-b-2 hover:border-yellow-400">{t("admin") || "Admin"}</Link></li>
 
           {/* Language Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="bg-white text-green-700 px-2 py-1 rounded hover:bg-gray-100"
+              className="bg-[#1a1a1a] text-white px-2 py-1 rounded  border-yellow-400 cursor-pointer"
             >
             🌐 {i18n.language === 'en' ? 'EN' : i18n.language === 'ur' ? 'اردو' : 'العربية'} ▼
             </button>
             {isLangOpen && (
-              <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded z-10">
-                <button onClick={() => changeLanguage('en')} className="block px-4 py-2 w-full text-left hover:bg-gray-100">English</button>
-                <button onClick={() => changeLanguage('ar')} className="block px-4 py-2 w-full text-left hover:bg-gray-100">العربية</button>
-                <button onClick={() => changeLanguage('ur')} className="block px-4 py-2 w-full text-left hover:bg-gray-100">اردو</button>
+              <div className="absolute right-0 mt-2 w-32 bg-[#1a1a1a] shadow-lg rounded z-10">
+                <button onClick={() => changeLanguage('en')} className="block px-4 py-2 w-full text-left hover:border-yellow-400 cursor-pointer">English</button>
+                <button onClick={() => changeLanguage('ar')} className="block px-4 py-2 w-full text-left hover:border-yellow-400 cursor-pointer">العربية</button>
+                <button onClick={() => changeLanguage('ur')} className="block px-4 py-2 w-full text-left hover:border-yellow-400 cursor-pointer">اردو</button>
               </div>
             )}
           </div>
@@ -76,25 +76,25 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden px-4 pb-4">
-          <ul className="space-y-3 text-gray-700">
-            <li><Link to="/" onClick={() => setIsMenuOpen(false)} className="block hover:text-green-600">{t("home") || "Home"}</Link></li>
-            <li><Link to="/books" onClick={() => setIsMenuOpen(false)} className="block hover:text-green-600">{t("books") || "Books"}</Link></li>
-            <li><Link to="/about" onClick={() => setIsMenuOpen(false)} className="block hover:text-green-600">{t("about") || "About"}</Link></li>
-            <li><Link to="/admin/login" onClick={() => setIsMenuOpen(false)} className="block hover:text-green-600">{t("admin") || "Admin"}</Link></li>
+          <ul className="space-y-3 text-white">
+            <li><Link to="/" onClick={() => setIsMenuOpen(false)} className="block hover:border-b-2 hover:border-yellow-400">{t("home") || "Home"}</Link></li>
+            <li><Link to="/books" onClick={() => setIsMenuOpen(false)} className="block hover:border-b-2 hover:border-yellow-400">{t("books") || "Books"}</Link></li>
+            <li><Link to="/about" onClick={() => setIsMenuOpen(false)} className="block hover:border-b-2 hover:border-yellow-400">{t("about") || "About"}</Link></li>
+            <li><Link to="/admin/login" onClick={() => setIsMenuOpen(false)} className="block hover:border-b-2 hover:border-yellow-400">{t("admin") || "Admin"}</Link></li>
 
             {/* Language Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="bg-white text-green-700 px-2 py-1 rounded  w-full text-left mt-2"
+                className="bg-[#1a1a1a] text-white px-2 py-1 rounded  w-full text-left mt-2"
               >
                 🌐 {i18n.language.toUpperCase()} ▼
               </button>
               {isLangOpen && (
-                <div className="mt-1 w-full bg-white shadow-md rounded">
-                  <button onClick={() => changeLanguage('en')} className="block px-4 py-2 w-full text-left hover:bg-gray-100">English</button>
-                  <button onClick={() => changeLanguage('ar')} className="block px-4 py-2 w-full text-left hover:bg-gray-100">العربية</button>
-                  <button onClick={() => changeLanguage('ur')} className="block px-4 py-2 w-full text-left hover:bg-gray-100">اردو</button>
+                <div className="mt-1 w-full bg-[#1a1a1a] shadow-md rounded">
+                  <button onClick={() => changeLanguage('en')} className="block px-4 py-2 w-full text-left hover:border-b-2 hover:border-yellow-400">English</button>
+                  <button onClick={() => changeLanguage('ar')} className="block px-4 py-2 w-full text-left hover:border-b-2 hover:border-yellow-400">العربية</button>
+                  <button onClick={() => changeLanguage('ur')} className="block px-4 py-2 w-full text-left hover:border-b-2 hover:border-yellow-400">اردو</button>
                 </div>
               )}
             </div>

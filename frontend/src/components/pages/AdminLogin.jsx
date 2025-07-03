@@ -29,7 +29,7 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className='min-h-screen flex items-center justify-center bg-gray-100 px-4'>
+        <div className='min-h-screen flex items-center justify-center bg-[#262626] px-4'>
         <div className='bg-white shadow rounded p-6 w-full max-w-md'>
             <h2 className='text-2xl font-bold mb-4 text-center'>{t('adminLogin')}</h2>
             {error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
@@ -55,7 +55,7 @@ const AdminLogin = () => {
 
                 <button
                 type='submit'
-                className='w-full bg-green-600 text-white p-2 rounded hover:bg-green-700'
+                className='w-full bg-gray-400 text-white p-2 rounded hover:bg-gray-500'
                 >
                     {t('login')}
                 </button>
