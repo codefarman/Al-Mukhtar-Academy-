@@ -26,14 +26,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage, fileFilter });
-
-// export const uploadBookFiles = upload.fields([
-//   { name: 'pdf', maxCount: 1 },
-//   { name: 'cover', maxCount: 1 },
-// ]);
-
-// export default upload;
+const upload = multer({ storage, fileFilter, limits: { fileSize: 100 * 1024 * 1024 } }); // 100 MB limit
 
 export const uploadBookFiles = (req, res, next) => {
   upload.fields([
