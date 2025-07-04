@@ -67,11 +67,11 @@ const HeroSection = () => {
     <div className="w-full">
       <picture>
         {/* Mobile version of banner */}
-        <source srcSet="/images/hero2.jpg" media="(max-width: 640px)" />
+        <source srcSet="/images/logo3.jpg" media="(max-width: 640px)" />
 
         {/* Default (desktop/tablet) version */}
         <img
-          src="/images/hero2.jpg"
+          src="/images/logo3.jpg"
           alt="Hero Banner"
           className="w-full h-auto object-cover max-h-[500px] sm:max-h-[600px]"
         />
