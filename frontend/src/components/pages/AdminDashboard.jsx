@@ -54,6 +54,7 @@ const AdminDashboard = () => {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
                 },
+                timeout: 120000, // 120 seconds timeout
             });
 
             setSuccessMsg(t('bookUploadedSuccessfully'));
