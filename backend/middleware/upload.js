@@ -28,23 +28,38 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter, limits: { fileSize: 100 * 1024 * 1024 } }); // 100 MB limit
 
+// export const uploadBookFiles = (req, res, next) => {
+//   upload.fields([
+//     { name: 'pdf', maxCount: 1 },
+//     { name: 'cover', maxCount: 1 },
+//   ])(req, res, function (err) {
+//     if (err) {
+//       return res.status(400).json({ message: 'Upload error', details: err.message });
+//     }
+
+//     // Debug: Confirm text fields
+//     console.log('📦 req.body.description =', req.body.description);
+//     console.log('📄 req.body.title =', req.body.title);
+
+//     if (!req.body.description) {
+//       console.warn('⚠️ Description field missing — check if it was sent properly.');
+//     }
+
+//     next();
+//   });
+// };
 export const uploadBookFiles = (req, res, next) => {
   upload.fields([
     { name: 'pdf', maxCount: 1 },
     { name: 'cover', maxCount: 1 },
   ])(req, res, function (err) {
-    if (err) {
-      return res.status(400).json({ message: 'Upload error', details: err.message });
+    if (err instanceof multer.MulterError) {
+      console.error("Multer error:", err);
+      return res.status(400).json({ message: "Multer upload error", error: err.message });
+    } else if (err) {
+      console.error(" Unknown upload error:", err);
+      return res.status(500).json({ message: "Upload failed", error: err.message });
     }
-
-    // Debug: Confirm text fields
-    console.log('📦 req.body.description =', req.body.description);
-    console.log('📄 req.body.title =', req.body.title);
-
-    if (!req.body.description) {
-      console.warn('⚠️ Description field missing — check if it was sent properly.');
-    }
-
     next();
   });
 };

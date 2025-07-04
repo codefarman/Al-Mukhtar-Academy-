@@ -4,6 +4,18 @@ import fs from 'fs';
 
 export const uploadBook = async (req, res) => {
   try {
+
+    // Debug: Log incoming request body and files
+     console.log("📥 Incoming upload...");
+    console.log("📄 req.files.pdf:", req.files?.pdf?.[0]);
+    console.log("🖼️ req.files.cover:", req.files?.cover?.[0]);
+    console.log("📝 req.body:", req.body);
+
+    const pdfFile = req.files?.pdf?.[0];
+    if (pdfFile) {
+      console.log("📄 PDF size (MB):", (pdfFile.size / 1024 / 1024).toFixed(2));
+    }
+
     const { title, category, description } = req.body;
 
     if (!req.files?.pdf || !req.files?.cover) {
