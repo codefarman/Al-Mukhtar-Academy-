@@ -14,10 +14,12 @@ export const uploadBook = async (req, res) => {
     const pdfUpload = await cloudinary.uploader.upload(req.files.pdf[0].path, {
       resource_type: 'raw',
       folder: 'books/pdfs',
+      timeout: 120000, // 120 seconds timeout
     });
 
     const coverUpload = await cloudinary.uploader.upload(req.files.cover[0].path, {
       folder: 'books/covers',
+      timeout: 120000, // 120 seconds timeout
     });
 
     // Delete only local files (temp uploads)
