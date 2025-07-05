@@ -75,13 +75,24 @@ const sanitizeFileName = (originalName) => {
 
 export const uploadBook = async (req, res) => {
   try {
+
+      // Debug: Log incoming request body and files
+     console.log("📥 Incoming upload...");
+    console.log("📄 req.files.pdf:", req.files?.pdf?.[0]);
+    console.log("🖼️ req.files.cover:", req.files?.cover?.[0]);
+    console.log("📝 req.body:", req.body);
+
+    const pdfFile = req.files?.pdf?.[0];
+    if (pdfFile) {
+      console.log("📄 PDF size (MB):", (pdfFile.size / 1024 / 1024).toFixed(2));
+    }
+
     const { title, category, description } = req.body;
 
     if (!req.files?.pdf || !req.files?.cover) {
       return res.status(400).json({ message: "Missing files" });
     }
 
-    const pdfFile = req.files.pdf[0];
     const coverFile = req.files.cover[0];
 
     // Sanitize file names
@@ -128,9 +139,14 @@ export const uploadBook = async (req, res) => {
     res.status(201).json(book);
 
   } catch (err) {
-    console.error("Upload error:", err);
-    res.status(500).json({ error: "Upload failed", details: err.message });
-  }
+    console.error("Upload failed:", {
+    message: err.message,
+    name: err.name,
+    stack: err.stack,
+    fullError: err,
+  });
+  res.status(500).json({ error: "Upload failed", details: err.message });
+}
 };
 
 export const getAllBooks = async (req, res) => {
