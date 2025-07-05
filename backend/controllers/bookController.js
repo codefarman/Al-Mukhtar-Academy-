@@ -63,6 +63,16 @@ import fs from 'fs';
 import Book from '../models/Book.js';
 import { supabase } from '../utils/supabaseClient.js';
 
+// Utility: Sanitize filenames to avoid Supabase key issues
+const sanitizeFileName = (originalName) => {
+  const base = originalName
+    .replace(/\.[^/.]+$/, '')            // Remove extension
+    .replace(/[^a-zA-Z0-9-_]/g, '')      // Remove special/unicode characters
+    .toLowerCase();
+  const ext = originalName.split('.').pop();
+  return `${Date.now()}-${base}.${ext}`;
+};
+
 export const uploadBook = async (req, res) => {
   try {
     const { title, category, description } = req.body;
@@ -74,9 +84,13 @@ export const uploadBook = async (req, res) => {
     const pdfFile = req.files.pdf[0];
     const coverFile = req.files.cover[0];
 
+    // Sanitize file names
+    const pdfPath = `pdfs/${sanitizeFileName(pdfFile.originalname)}`;
+    const coverPath = `covers/${sanitizeFileName(coverFile.originalname)}`;
+
     // Upload PDF
-    const pdfPath = `pdfs/${Date.now()}-${pdfFile.originalname}`;
-    const { error: pdfError } = await supabase.storage
+    const { error: pdfError } = await supabase
+      .storage
       .from('books')
       .upload(pdfPath, fs.readFileSync(pdfFile.path), {
         contentType: pdfFile.mimetype,
@@ -87,8 +101,8 @@ export const uploadBook = async (req, res) => {
     const pdfUrl = supabase.storage.from('books').getPublicUrl(pdfPath).data.publicUrl;
 
     // Upload Cover
-    const coverPath = `covers/${Date.now()}-${coverFile.originalname}`;
-    const { error: coverError } = await supabase.storage
+    const { error: coverError } = await supabase
+      .storage
       .from('books')
       .upload(coverPath, fs.readFileSync(coverFile.path), {
         contentType: coverFile.mimetype,
@@ -98,11 +112,11 @@ export const uploadBook = async (req, res) => {
 
     const coverUrl = supabase.storage.from('books').getPublicUrl(coverPath).data.publicUrl;
 
-    // Clean up local temp files
+    // Delete local temp files
     fs.unlinkSync(pdfFile.path);
     fs.unlinkSync(coverFile.path);
 
-    // Save to DB
+    // Save to MongoDB
     const book = await Book.create({
       title,
       category,
@@ -118,8 +132,6 @@ export const uploadBook = async (req, res) => {
     res.status(500).json({ error: "Upload failed", details: err.message });
   }
 };
-
-
 
 export const getAllBooks = async (req, res) => {
     const books = await Book.find().sort({ createdAt: -1});
