@@ -3,6 +3,7 @@ import HeroSection from "../HeroSection/HeroSection";
 import BookCard from "../BookCard/Bookcard";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -20,8 +21,16 @@ const Home = () => {
     fetchBooks();
   }, []);
 
+
+
   return (
     <div className="bg-[#1a1a1a] text-gray-900">
+      <Helmet>
+        <title>Al-Mukhtar Library - Free Islamic Books</title>
+        <meta name="description" content="Read and download authentic Islamic books in PDF. Hosted by Al-Mukhtar Library." />
+        <meta name="keywords" content="Islamic books, Urdu PDF books, Arabic books, Ashraf Ali Thanwi books, tasawwuf, Islamic library" />
+        <link rel="canonical" href="https://almukhtarlibrary.com" />
+      </Helmet>
       <Navbar />
       <HeroSection />
 
