@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import Navbar from '../Navbar/Navbar';
 
 const About = () => {
   const { t, i18n } = useTranslation();
@@ -18,6 +19,8 @@ const About = () => {
   const benefits = t("benefit_list", { returnObjects: true });
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md text-gray-800">
         <h2 className="text-3xl font-bold text-green-700 mb-4 text-center">{t("about_title")}</h2>
@@ -59,6 +62,7 @@ const About = () => {
         <p className="text-center text-gray-500 mt-6 italic">{t("footer")}</p>
       </div>
     </div>
+</>
   );
 };
 
